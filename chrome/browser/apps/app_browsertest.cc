@@ -660,7 +660,15 @@ IN_PROC_BROWSER_TEST_F(PlatformAppBrowserTest,
 #endif
 IN_PROC_BROWSER_TEST_F(PlatformAppBrowserTest,
                        MAYBE_ShellWindowRestoreState) {
-  ASSERT_TRUE(RunPlatformAppTest("platform_apps/restore_state"));
+  ASSERT_TRUE(RunPlatformAppTestWithArg("platform_apps/restore_state",
+                                        "normal"));
+  ASSERT_TRUE(RunPlatformAppTestWithArg("platform_apps/restore_state",
+                                        "maximized"));
+
+  // TODO: Add a conditional to skip this test on Mac 10.6.
+  ASSERT_TRUE(RunPlatformAppTestWithArg("platform_apps/restore_state",
+                                        "fullscreen"));
+  // Minimize behavior is platform dependent.
 }
 
 IN_PROC_BROWSER_TEST_F(PlatformAppBrowserTest,

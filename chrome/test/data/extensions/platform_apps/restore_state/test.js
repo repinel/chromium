@@ -40,17 +40,12 @@ var testRestoreState = function(state_type) {
   };
 }
 
-chrome.app.runtime.onLaunched.addListener(function() {
+chrome.app.runtime.onLaunched.addListener(function(launchData) {
   chrome.test.runTests([
-    function testRestoreNormal() {
-      testRestoreState('normal');
-    },
-    function testRestoreMaximized() {
-      testRestoreState('maximized');
-    },
-    function testRestoreFullscreen() {
-      testRestoreState('fullscreen');
-    },
-    // Minimize and fullscreen behavior are platform dependent.
+    function testRestore() {
+      chrome.test.getConfig(function(config) {
+        testRestoreState(config.customArg);
+      });
+    }
   ]);
 });
